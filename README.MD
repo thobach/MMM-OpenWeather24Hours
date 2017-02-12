@@ -7,8 +7,8 @@ The idea of this module is to give you confidence on what to wear when you go ou
 * Current temperature and cloudiness
 * Temperature forecast for next 24 hours
 * Precipitation (rain, snow) forecast for next 24 hours
-** Chance of rain / snow
-** Amount of rain / snow
+ * Chance of rain / snow
+ * Amount of rain / snow
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/thobach/MMM-WunderGround24Hours.git`.
