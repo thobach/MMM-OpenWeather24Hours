@@ -12,7 +12,7 @@ The idea of this module is to give you confidence on what to wear when you go ou
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/thobach/MMM-WunderGround24Hours.git`.
-2. In order to load the MMM-WunderGround24Hours module you will need to add the following configuration to your `config/config.js` file. As `appid` you need to provide an API key from WunderGround which you can get from [WunderGround Developer Portal](https://www.wunderground.com/weather/api/). As `location` you can lookup a close by personal weather station at WeatherUnderground's [WunderMap](https://www.wunderground.com/wundermap) and copy the station ID, e.g. `IDRESDEN88`.
+2. In order to load the MMM-WunderGround24Hours module you will need to add the following configuration to your `config/config.js` file. As `appid` you need to provide an API key from WunderGround which you can get from [WunderGround Developer Portal](https://www.wunderground.com/weather/api/). As `location` you can lookup a close by personal weather station at WeatherUnderground's [WunderMap](https://www.wunderground.com/wundermap) and copy the station ID prefixed by "pws:", e.g. `pws:IDRESDEN88`.
 ````javascript
 modules: [
 	{
