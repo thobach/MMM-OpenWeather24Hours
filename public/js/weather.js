@@ -55,9 +55,14 @@ var getWeather = function ($http) {
 	
 	parseCurrentData = function (now, weatherService){
 	
-		weatherService.weather.now.temp = Math.round(now.temp_c);
-		weatherService.weather.now.icon = 'img/VCloudsWeatherIcons/' + 
-			now.icon_url.replace('http://icons.wxug.com/i/c/k/', '').replace('.gif', '.png');
+		if(typeof now !== 'undefined' && typeof now.temp_c !== 'undefined' && typeof now.icon_url !== 'undefined'){
+			weatherService.weather.now.temp = Math.round(now.temp_c);
+			weatherService.weather.now.icon = 'img/VCloudsWeatherIcons/' + 
+				now.icon_url.replace('http://icons.wxug.com/i/c/k/', '').replace('.gif', '.png');
+		} else {
+			console.log('Cannot parse current data as variable "now" is not defined:');
+			console.log(now);
+		}
 
 	}
 	
@@ -73,7 +78,8 @@ var getWeather = function ($http) {
 	plot24HourForecast = function (data){
 	
 		var colorLightGrey = "rgba(220,220,220,0.2)";
-		var colorGrey = "#dcdcdc";
+		// var colorGrey = "#dcdcdc";
+		var colorGrey = "#fff";
 		var colorBlueGrey = "rgba(151,187,205,0.2)";
 		var colorWhite = "#fff";
 		var colorBlue = "#97bbcd";
@@ -186,9 +192,10 @@ var getWeather = function ($http) {
 		// graphs' scale and line options
 		
 		Chart.defaults.global.animation = false;
+		Chart.defaults.global.scaleFontColor= "#fff";
 
 		// temp		
-		var stepTemp  = (parseInt(maxTempForecast) - parseInt(minTempForecast)) > 10 ? 2 : 1;
+		var stepTemp  = (parseInt(maxTempForecast) - parseInt(minTempForecast)) > 6 ? 2 : 1;
 		var maxTemp   = parseInt(maxTempForecast) + 2;
 		var startTemp = parseInt(minTempForecast) - 2;
 							
