@@ -25,3 +25,15 @@ modules: [
 	},
 ]
 ````
+
+## Migration from MMM-WunderGround24Hours
+1. Move folder
+````bash
+cd ~/MagicMirror/modules/
+mv MMM-WunderGround24Hours/ MMM-DarkSky24Hours/
+````
+2. Update to latest version
+````bash
+git pull
+````
+3. Adjust config file (see above)
