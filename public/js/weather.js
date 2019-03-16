@@ -1,12 +1,12 @@
-// AngularJS Weather App using Weather Underground Data
+// AngularJS Weather App using Dark Sky Data
 
 var weatherCtrlDef = function($scope, $http, getWeather) {
 	
-	var weatherUndergroundApiKey = getParamValue('weatherUndergroundApiKey');
-	var weatherStation = getParamValue('weatherStation');
+	var darkSkyApiKey = getParamValue('darkSkyApiKey');
+	var latitudeLongitude = getParamValue('latitudeLongitude');
 	
 	// init using global variables
-	getWeather.initWeather(weatherUndergroundApiKey, weatherStation);
+	getWeather.initWeather(darkSkyApiKey, latitudeLongitude);
 	
 	// wrap load function to be called repeatedly
 	var load = function(){
@@ -37,8 +37,8 @@ var getWeather = function ($http) {
 
 	// view model
 	var weatherService = {
-		"weatherUndergroundApiKey" : "",
-		"weatherStation" : "",
+		"darkSkyApiKey" : "",
+		"latitudeLongitude" : "",
 		"weather" : {
 			"now" : { "temp" : "N/A", "icon" : "N/A" },
 			"today" : { "min" : "N/A", "max" : "N/A" }, 
@@ -46,19 +46,18 @@ var getWeather = function ($http) {
 		}
 	};
 	
-	weatherService.initWeather = function (weatherUndergroundApiKey, weatherStation) {
+	weatherService.initWeather = function (darkSkyApiKey, latitudeLongitude) {
 	
-		weatherService.weatherUndergroundApiKey = weatherUndergroundApiKey;
-		weatherService.weatherStation = weatherStation;
+		weatherService.darkSkyApiKey = darkSkyApiKey;
+		weatherService.latitudeLongitude = latitudeLongitude;
 		
 	};
 	
 	parseCurrentData = function (now, weatherService){
 	
-		if(typeof now !== 'undefined' && typeof now.temp_c !== 'undefined' && typeof now.icon_url !== 'undefined'){
-			weatherService.weather.now.temp = Math.round(now.temp_c);
-			weatherService.weather.now.icon = 'img/VCloudsWeatherIcons/' + 
-				now.icon_url.replace('http://icons.wxug.com/i/c/k/', '').replace('.gif', '.png');
+		if(typeof now !== 'undefined' && typeof now.temperature !== 'undefined' && typeof now.icon !== 'undefined'){
+			weatherService.weather.now.temp = Math.round(now.temperature);
+			weatherService.weather.now.icon = 'img/VCloudsWeatherIcons/' + now.icon + '.png';
 		} else {
 			console.log('Cannot parse current data as variable "now" is not defined:');
 			console.log(now);
@@ -68,10 +67,10 @@ var getWeather = function ($http) {
 	
 	parseForecastData = function (today, tomorrow, weatherService){
 	
-		weatherService.weather.today.min = today.low.celsius;
-		weatherService.weather.today.max = today.high.celsius;
-		weatherService.weather.tomorrow.min = tomorrow.low.celsius;
-		weatherService.weather.tomorrow.max = tomorrow.high.celsius;
+		weatherService.weather.today.min = Math.round(today.temperatureLow);
+		weatherService.weather.today.max = Math.round(today.temperatureHigh);
+		weatherService.weather.tomorrow.min = Math.round(tomorrow.temperatureLow);
+		weatherService.weather.tomorrow.max = Math.round(tomorrow.temperatureHigh);
 
 	}
 	
@@ -88,15 +87,15 @@ var getWeather = function ($http) {
 		var forecastData = {};
 
 		// extract only relevant information
-		for (var i in data.hourly_forecast) {
+		for (var i in data) {
 		
-			var forecast = data.hourly_forecast[i];
+			var forecast = data[i];
 			
 			forecastData[i] = {
-				'hour': parseInt(forecast.FCTTIME.hour),
-				'temp': parseInt(forecast.temp.metric),
-				'pop': parseInt(forecast.pop),
-				'qpf': parseInt(forecast.qpf.metric)
+				'hour': new Date(forecast.time*1000).getHours(),
+				'temp': forecast.temperature,
+				'pop': forecast.precipProbability*100,
+				'qpf': forecast.precipIntensity
 			};
 			
 		}
@@ -252,15 +251,15 @@ var getWeather = function ($http) {
 	}
 	
 	
-	// get weather data from weather underground service
+	// get weather data from Dark Sky service
 	weatherService.load = function (callback) {
 		
 		var weatherRequest = function() {
 			
 			var request = {
 				method: 'GET',
-				url: 'http://api.wunderground.com/api/' + weatherService.weatherUndergroundApiKey + 
-					'/conditions/hourly/forecast/q/' + weatherService.weatherStation + '.json'
+				url: 'https://api.darksky.net/forecast/' + weatherService.darkSkyApiKey + 
+					'/' + weatherService.latitudeLongitude + '?exclude=alerts,flags&lang=de&units=auto'
 			}
 		
 			return request;
@@ -269,12 +268,12 @@ var getWeather = function ($http) {
 		var weatherRequestSuccess = function(data, status, headers, config){
 		
 			// current weather
-			var now = data.current_observation;
+			var now = data.currently;
 			parseCurrentData(now, weatherService);
 			
 			// weather forecast today and tomorrow
-			var today = data.forecast.simpleforecast.forecastday[0];
-			var tomorrow = data.forecast.simpleforecast.forecastday[1];
+			var today = data.daily.data[0];
+			var tomorrow = data.daily.data[1];
 			parseForecastData(today, tomorrow, weatherService);
 			
 			// update user interface
@@ -282,7 +281,7 @@ var getWeather = function ($http) {
 			
 			// plot 24 hour forecast directly
 			// 3 graphs (temperature, percentage of rain - pop, amount of rain - qpfs)
-			plot24HourForecast(data);
+			plot24HourForecast(data.hourly.data);
 				
 		};
 		

@@ -1,5 +1,5 @@
-# MMM-WunderGround24Hours 
-MMM-WunderGround24Hours is a 3rd party module for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows weather information for the next 24 hours. The weather data is mainly sourced private weather stations that are connected to Wunderground.
+# MMM-DarkSky24Hours 
+MMM-DarkSky24Hours is a 3rd party module for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows weather information for the next 24 hours. The weather data is retrieved from the Dark Sky API.
 
 The idea of this module is to give you confidence on what to wear when you go outside / to work, or what transport mode you should take (in case you are a good weather-only biker like me) ;) The hourly forecast gives you a good decision basis based on the weather condition at the times you go to work and return home.
 
@@ -11,12 +11,12 @@ The idea of this module is to give you confidence on what to wear when you go ou
  * Amount of rain / snow
 
 ## Installation
-1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/thobach/MMM-WunderGround24Hours.git`.
-2. In order to load the MMM-WunderGround24Hours module you will need to add the following configuration to your `config/config.js` file. As `appid` you need to provide an API key from WunderGround which you can get from [WunderGround Developer Portal](https://www.wunderground.com/weather/api/). As `location` you can lookup a close by personal weather station at WeatherUnderground's [WunderMap](https://www.wunderground.com/wundermap) and copy the station ID prefixed by "pws:", e.g. `pws:IDRESDEN88`.
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/thobach/MMM-DarkSky24Hours.git`.
+2. In order to load the MMM-DarkSky24Hours module you will need to add the following configuration to your `config/config.js` file. As `appid` you need to provide an API secret key from Dark Sky API which you can get from [Dark Sky Developer Portal](https://darksky.net/dev). As `location` you can specify your GPS location in the format [latitude],[longitude], e.g. `37.8267,-122.4233`.
 ````javascript
 modules: [
 	{
-		module: 'MMM-WunderGround24Hours',
+		module: 'MMM-DarkSky24Hours',
 		position: 'top_right',
 		config: {
 			appid: '',

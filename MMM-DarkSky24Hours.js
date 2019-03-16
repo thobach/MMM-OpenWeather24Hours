@@ -1,4 +1,4 @@
-Module.register("MMM-WunderGround24Hours",{
+Module.register("MMM-DarkSky24Hours",{
 
     // Override dom generator.
     getDom: function() {
@@ -7,7 +7,7 @@ Module.register("MMM-WunderGround24Hours",{
         wrapper.onload = function (obj){
         	obj.target.style.height = obj.target.contentWindow.document.body.scrollHeight + 'px';
         }
-        wrapper.src = this.file('/public/weather.html?weatherUndergroundApiKey=' + this.config.appid + '&weatherStation=' + this.config.location);
+        wrapper.src = this.file('/public/weather.html?darkSkyApiKey=' + this.config.appid + '&latitudeLongitude=' + this.config.location);
         wrapper.style.border = 'none';
         return wrapper;
     }

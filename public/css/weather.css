@@ -51,12 +51,12 @@ p.chartLabel {
 	margin-top: -10px;
 }
 
-.weatherUnderground {
+.darkSky {
 	text-align:center;
 	margin-top: 0.5em;
 }
 
-.weatherUndergroundLogo {
+.darkSkyLogo {
 	width: 70px;
 	margin-left: 20px;
 }
