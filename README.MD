@@ -33,7 +33,6 @@ electronOptions: {
         webSecurity: false
     }
 }
-]
 ````
 See also https://forum.magicmirror.builders/topic/9222/mmm-nest-status-new-module-for-your-nest-thermostats-and-protect-smoke-detectors/23 for an example.
 
