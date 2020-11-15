@@ -1,5 +1,5 @@
-# MMM-DarkSky24Hours 
-MMM-DarkSky24Hours is a 3rd party module for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows weather information for the next 24 hours. The weather data is retrieved from the Dark Sky API.
+# MMM-OpenWeather24Hours
+MMM-OpenWeather24Hours is a 3rd party module for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows weather information for the next 24 hours. The weather data is retrieved from the OpenWeather API.
 
 The idea of this module is to give you confidence on what to wear when you go outside / to work, or what transport mode you should take (in case you are a good weather-only biker like me) ;) The hourly forecast gives you a good decision basis based on the weather condition at the times you go to work and return home.
 
@@ -11,12 +11,12 @@ The idea of this module is to give you confidence on what to wear when you go ou
  * Amount of rain / snow
 
 ## Installation
-1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/thobach/MMM-DarkSky24Hours.git`.
-2. In order to load the MMM-DarkSky24Hours module you will need to add the following configuration to your `config/config.js` file. As `appid` you need to provide an API secret key from Dark Sky API which you can get from [Dark Sky Developer Portal](https://darksky.net/dev). As `location` you can specify your GPS location in the format [latitude],[longitude], e.g. `37.8267,-122.4233`.
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/thobach/MMM-OpenWeather24Hours.git`.
+2. In order to load the MMM-OpenWeather24Hours module you will need to add the following configuration to your `config/config.js` file. As `appid` you need to provide an API secret key from OpenWeather API which you can get from [OpenWeather Developer Portal](https://home.openweathermap.org/api_keysv). As `location` you can specify your GPS location in the format [latitude],[longitude], e.g. `37.8267,-122.4233`.
 ````javascript
 modules: [
 	{
-		module: 'MMM-DarkSky24Hours',
+		module: 'MMM-OpenWeather24Hours',
 		position: 'top_right',
 		config: {
 			appid: '',
@@ -26,7 +26,7 @@ modules: [
 ]
 ````
 3. Disable CORS
-In order to load the Dark Sky API from the browser without the need of a Node_Helper you will need to allow Electron to ignore the CORS rules. Add the following configuration to your `config/config.js` file, e.g. below the `modules` property..
+In order to load the OpenWeather API from the browser without the need of a Node_Helper you will need to allow Electron to ignore the CORS rules. Add the following configuration to your `config/config.js` file, e.g. below the `modules` property..
 ````javascript
 electronOptions: {
     webPreferences: {
@@ -36,11 +36,11 @@ electronOptions: {
 ````
 See also https://forum.magicmirror.builders/topic/9222/mmm-nest-status-new-module-for-your-nest-thermostats-and-protect-smoke-detectors/23 for an example.
 
-## Migration from MMM-WunderGround24Hours
+## Migration from MMM-DarkSky24Hours
 1. Move folder
 ````bash
 cd ~/MagicMirror/modules/
-mv MMM-WunderGround24Hours/ MMM-DarkSky24Hours/
+mv MMM-DarkSky24Hours/ MMM-OpenWeather24Hours/
 ````
 2. Update to latest version
 ````bash
