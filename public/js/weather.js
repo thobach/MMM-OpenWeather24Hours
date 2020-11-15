@@ -55,9 +55,9 @@ var getWeather = function ($http) {
 
 	parseCurrentData = function (now, weatherService){
 
-		if(typeof now !== 'undefined' && typeof now.temp !== 'undefined' && typeof now.weather.icon !== 'undefined'){
+		if(typeof now !== 'undefined' && typeof now.temp !== 'undefined' && typeof now.weather[0].icon !== 'undefined'){
 			weatherService.weather.now.temp = Math.round(now.temp);
-			weatherService.weather.now.icon = 'img/VCloudsWeatherIcons/' + now.weather.icon + '.png';
+			weatherService.weather.now.icon = 'img/VCloudsWeatherIcons/' + now.weather[0].icon + '.png';
 		} else {
 			console.log('Cannot parse current data as variable "now" is not defined:');
 			console.log(now);
@@ -96,7 +96,7 @@ var getWeather = function ($http) {
 				'hour': new Date(forecast.dt*1000).getHours(),
 				'temp': forecast.temp,
 				'pop': forecast.pop*100,
-				'qpf': (forecast.rain && forecast.snow ? (forecast.rain['1h'] + forecast.snow['1h'] : (forecast.rain ? forecast.rain['1h'] : (forecast.snow ? forecast.snow['1h'] : 0))))
+				'qpf': (forecast.rain && forecast.snow ? forecast.rain['1h'] + forecast.snow['1h'] : (forecast.rain ? forecast.rain['1h'] : (forecast.snow ? forecast.snow['1h'] : 0)))
 			};
 
 		}
@@ -146,13 +146,9 @@ var getWeather = function ($http) {
 			labels: hours,
 			datasets: [
 				{
-					fillColor: colorLightGrey,
-					strokeColor: colorGrey,
-					pointColor: colorGrey,
-					pointStrokeColor: colorWhite,
-					pointHighlightFill: colorWhite,
-					pointHighlightStroke: colorGrey,
-					data: temps
+					borderColor: colorWhite,
+					data: temps,
+					lineTension: 0
 				}
 			]
 		};
@@ -162,13 +158,9 @@ var getWeather = function ($http) {
 			labels: hours,
 			datasets: [
 				{
-					fillColor: colorBlueGrey,
-					strokeColor: colorBlue,
-					pointColor: colorBlue,
-					pointStrokeColor: colorWhite,
-					pointHighlightFill: colorWhite,
-					pointHighlightStroke: colorBlue,
-					data: pops
+					borderColor: colorWhite,
+					data: pops,
+					lineTension: 0
 				}
 			]
 		};
@@ -178,13 +170,9 @@ var getWeather = function ($http) {
 			labels: hours,
 			datasets: [
 				{
-					fillColor: colorBlueGrey,
-					strokeColor: colorBlue,
-					pointColor: colorBlue,
-					pointStrokeColor: colorWhite,
-					pointHighlightFill: colorWhite,
-					pointHighlightStroke: colorBlue,
-					data: qpfs
+					borderColor: colorWhite,
+					data: qpfs,
+					lineTension: 0
 				}
 			]
 		};
@@ -199,13 +187,21 @@ var getWeather = function ($http) {
 		var maxTemp   = parseInt(maxTempForecast) + 2;
 		var startTemp = parseInt(minTempForecast) - 2;
 
+		// scaleSteps: Math.ceil((maxTemp-startTemp)/stepTemp),
+
 		var optionsTemp = {
-			bezierCurve : false,
-			pointDot : false,
-			scaleOverride: true,
-			scaleSteps: Math.ceil((maxTemp-startTemp)/stepTemp),
-			scaleStepWidth: stepTemp,
-			scaleStartValue: startTemp
+			legend: {
+        display: false
+    	},
+			scales: {
+				yAxes: [{
+            ticks: {
+                max: maxTemp,
+                min: startTemp,
+                stepSize: stepTemp
+            }
+        }]
+      }
 
 		};
 
@@ -215,13 +211,18 @@ var getWeather = function ($http) {
 		var startPop = 0;
 
 		var optionsPop = {
-			bezierCurve : false,
-			pointDot : false,
-			scaleOverride: true,
-			scaleSteps: Math.ceil((maxPop-startPop)/stepPop),
-			scaleStepWidth: stepPop,
-			scaleStartValue: startPop
-
+			legend: {
+        display: false
+    	},
+			scales: {
+				yAxes: [{
+            ticks: {
+                max: maxPop,
+                min: startPop,
+                stepSize: stepPop
+            }
+        }]
+      }
 		};
 
 		// QPF
@@ -230,24 +231,29 @@ var getWeather = function ($http) {
 		var startQpf = 0;
 
 		var optionsQpf = {
-			bezierCurve : false,
-			pointDot : false,
-			scaleOverride: true,
-			scaleSteps: Math.ceil((maxQpf-startQpf)/stepQpf),
-			scaleStepWidth: stepQpf,
-			scaleStartValue: startQpf
-
+			legend: {
+        display: false
+    	},
+			scales: {
+				yAxes: [{
+            ticks: {
+                max: maxQpf,
+                min: startQpf,
+                stepSize: stepQpf
+            }
+        }]
+      }
 		};
 
 		// canvas HTML elements to plot graphs
-		var ctxTemp = $("#hourlyForecastTemp").get(0).getContext("2d");
-		var ctxPop = $("#hourlyForecastPop").get(0).getContext("2d");
-		var ctxQpf = $("#hourlyForecastQpf").get(0).getContext("2d");
+		var ctxTemp = document.getElementById("hourlyForecastTemp").getContext("2d");
+		var ctxPop = document.getElementById("hourlyForecastPop").getContext("2d");
+		var ctxQpf = document.getElementById("hourlyForecastQpf").getContext("2d");
 
 		// plot graphs
-		var chartTemp = new Chart(ctxTemp).Line(dataTemp, optionsTemp);
-		var chartPop = new Chart(ctxPop).Line(dataPop, optionsPop);
-		var chartQpf = new Chart(ctxQpf).Line(dataQpf, optionsQpf);
+		var chartTemp = new Chart(ctxTemp, {type: 'line', data: dataTemp, options: optionsTemp});
+		var chartPop = new Chart(ctxPop, {type: 'line', data: dataPop, options: optionsPop});
+		var chartQpf = new Chart(ctxQpf, {type: 'line', data: dataQpf, options: optionsQpf});
 
 	}
 
@@ -273,8 +279,8 @@ var getWeather = function ($http) {
 			parseCurrentData(now, weatherService);
 
 			// weather forecast today and tomorrow
-			var today = data.daily.data[0];
-			var tomorrow = data.daily.data[1];
+			var today = data.daily[0];
+			var tomorrow = data.daily[1];
 			parseForecastData(today, tomorrow, weatherService);
 
 			// update user interface
@@ -282,7 +288,7 @@ var getWeather = function ($http) {
 
 			// plot 24 hour forecast directly
 			// 3 graphs (temperature, percentage of rain - pop, amount of rain - qpfs)
-			plot24HourForecast(data.hourly.data);
+			plot24HourForecast(data.hourly);
 
 		};
 

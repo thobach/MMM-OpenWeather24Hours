@@ -48,15 +48,10 @@ p.chartLabel {
 	text-align:center;
 	font-size: 0.8em;
 	margin-left: 20px;
-	margin-top: -10px;
+	margin-top: 2px;
 }
 
-.darkSky {
+.openWeather {
 	text-align:center;
 	margin-top: 0.5em;
-}
-
-.darkSkyLogo {
-	width: 70px;
-	margin-left: 20px;
 }
