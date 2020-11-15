@@ -11,12 +11,12 @@
 
 	<!-- right section -->
 	<div class="weather-app" ng-app="weather" id="weather" ng-controller="weatherCtrl">
-	
+
 		<!-- current temperature -->
 		<div class="temp">
 			<img ng-src="{{weather.now.icon}}" class="dimmed currentWeather">{{weather.now.temp}} °C
 		</div>
-		
+
 		<!-- weather forecast 48 hours -->
 		<div class="forecast small dimmed">
 			<table class="forecast-table">
@@ -36,36 +36,35 @@
 				</tbody>
 			</table>
 		</div>
-		
+
 		<!-- weather forecast details 24 hours -->
 		<div class="forecasthourlyTemp small dimmed"></div>
 		<div class="forecasthourlyTemp small dimmed">
-			<canvas id="hourlyForecastTemp"></canvas>
+			<canvas id="hourlyForecastTemp" width="300" height="150"></canvas>
 			<p class="chartLabel">Temperatur (°C)</p>
 		</div>
 		<div class="forecasthourlyPop small dimmed">
-			<canvas id="hourlyForecastPop"></canvas>
+			<canvas id="hourlyForecastPop" width="300" height="150"></canvas>
 			<p class="chartLabel">Niederschlagswkt. (%)</p>
 		</div>
 		<div class="forecasthourlyQpf small dimmed">
-			<canvas id="hourlyForecastQpf"></canvas>
+			<canvas id="hourlyForecastQpf" width="300" height="100"></canvas>
 			<p class="chartLabel">Niederschlagshöhe (mm)</p>
 		</div>
-		<div class="darkSky">
-			<a href="https://darksky.net/poweredby/"><img src="https://darksky.net/dev/img/attribution/poweredby-darkbackground.png" class="darkSkyLogo" alt="Dark Sky logo" /></a>
+		<div class="openWeather dimmed">
+			powered by OpenWeather (TM)
 		</div>
-		
+
 	</div>
 
 </div>
 
-<!-- generic libs (AngularJS, jQuery) -->
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+<!-- generic libs (AngularJS) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js" integrity="sha512-7oYXeK0OxTFxndh0erL8FsjGvrl2VMDor6fVqzlLGfwOQQqTbYsGPv4ZZ15QHfSk80doyaM0ZJdvkyDcVO7KFA==" crossorigin="anonymous"></script>
 
 <!-- weather -->
-<!-- Chart.js requires jQuery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
 <script src="js/weather.js"></script>
 </body>
 </html>

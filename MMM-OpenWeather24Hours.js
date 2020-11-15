@@ -1,4 +1,4 @@
-Module.register("MMM-DarkSky24Hours",{
+Module.register("MMM-OpenWeather24Hours",{
 
     // Override dom generator.
     getDom: function() {
@@ -7,7 +7,7 @@ Module.register("MMM-DarkSky24Hours",{
         wrapper.onload = function (obj){
         	obj.target.style.height = obj.target.contentWindow.document.body.scrollHeight + 'px';
         }
-        wrapper.src = this.file('/public/weather.html?darkSkyApiKey=' + this.config.appid + '&latitudeLongitude=' + this.config.location);
+        wrapper.src = this.file('/public/weather.html?openWeatherApiKey=' + this.config.appid + '&latitudeLongitude=' + this.config.location);
         wrapper.style.border = 'none';
         return wrapper;
     }
