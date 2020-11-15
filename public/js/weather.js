@@ -272,7 +272,9 @@ var getWeather = function ($http) {
 			return request;
 		}
 
-		var weatherRequestSuccess = function(data, status, headers, config){
+		var weatherRequestSuccess = function(response){
+
+			var data = response.data;
 
 			// current weather
 			var now = data.current;
@@ -292,7 +294,10 @@ var getWeather = function ($http) {
 
 		};
 
-		var weatherRequestError = function(data, status, headers, config){
+		var weatherRequestError = function(response){
+
+			var data = response.data;
+	    var status = response.status;
 
 			weatherService.weather = {
 				"today" : { "min" : "N/A", "max" : "N/A" },
@@ -303,7 +308,10 @@ var getWeather = function ($http) {
 
 		}
 
-		$http(weatherRequest()).success(weatherRequestSuccess).error(weatherRequestError);
+		$http(weatherRequest()).
+			then(function (response) { weatherRequestSuccess(response); },
+			function (response) { weatherRequestError(response); }
+		);
 
 	};
 
