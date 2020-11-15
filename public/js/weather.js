@@ -76,12 +76,7 @@ var getWeather = function ($http) {
 
 	plot24HourForecast = function (data){
 
-		var colorLightGrey = "rgba(220,220,220,0.2)";
-		// var colorGrey = "#dcdcdc";
-		var colorGrey = "#fff";
-		var colorBlueGrey = "rgba(151,187,205,0.2)";
-		var colorWhite = "#fff";
-		var colorBlue = "#97bbcd";
+		var colorGrey = "#dcdcdc";
 
 		// internal forecast structure
 		var forecastData = {};
@@ -146,7 +141,7 @@ var getWeather = function ($http) {
 			labels: hours,
 			datasets: [
 				{
-					borderColor: colorWhite,
+					borderColor: colorGrey,
 					data: temps,
 					lineTension: 0
 				}
@@ -158,7 +153,7 @@ var getWeather = function ($http) {
 			labels: hours,
 			datasets: [
 				{
-					borderColor: colorWhite,
+					borderColor: colorGrey,
 					data: pops,
 					lineTension: 0
 				}
@@ -170,7 +165,7 @@ var getWeather = function ($http) {
 			labels: hours,
 			datasets: [
 				{
-					borderColor: colorWhite,
+					borderColor: colorGrey,
 					data: qpfs,
 					lineTension: 0
 				}
@@ -187,20 +182,25 @@ var getWeather = function ($http) {
 		var maxTemp   = parseInt(maxTempForecast) + 2;
 		var startTemp = parseInt(minTempForecast) - 2;
 
-		// scaleSteps: Math.ceil((maxTemp-startTemp)/stepTemp),
-
 		var optionsTemp = {
 			legend: {
         display: false
     	},
 			scales: {
 				yAxes: [{
-            ticks: {
-                max: maxTemp,
-                min: startTemp,
-                stepSize: stepTemp
-            }
-        }]
+          ticks: {
+            max: maxTemp,
+            min: startTemp,
+            stepSize: stepTemp,
+						fontColor: colorGrey
+          }
+        }],
+				xAxes: [{
+					ticks: {
+						fontColor: colorGrey,
+						maxTicksLimit: 24
+					}
+				}]
       }
 
 		};
@@ -216,17 +216,24 @@ var getWeather = function ($http) {
     	},
 			scales: {
 				yAxes: [{
-            ticks: {
-                max: maxPop,
-                min: startPop,
-                stepSize: stepPop
-            }
-        }]
+          ticks: {
+            max: maxPop,
+            min: startPop,
+            stepSize: stepPop,
+						fontColor: colorGrey
+		      }
+		    }],
+				xAxes: [{
+					ticks: {
+						fontColor: colorGrey,
+						maxTicksLimit: 24
+					}
+				}]
       }
 		};
 
 		// QPF
-		var stepQpf = 0.5;
+		var stepQpf = 0.2;
 		var maxQpf = maxQpfForecast + 1;
 		var startQpf = 0;
 
@@ -236,12 +243,19 @@ var getWeather = function ($http) {
     	},
 			scales: {
 				yAxes: [{
-            ticks: {
-                max: maxQpf,
-                min: startQpf,
-                stepSize: stepQpf
-            }
-        }]
+          ticks: {
+            max: maxQpf,
+            min: startQpf,
+            stepSize: stepQpf,
+						fontColor: colorGrey
+		      }
+		    }],
+				xAxes: [{
+					ticks: {
+						fontColor: colorGrey,
+						maxTicksLimit: 24
+					}
+				}]
       }
 		};
 
