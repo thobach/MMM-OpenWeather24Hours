@@ -98,7 +98,7 @@ var getWeather = function ($http) {
 
 		// data sets for graphs per hour (temp, POP, QPF)
 		var hours = [];
-		var temps = []
+		var temps = [];
 		var pops = [];
 		var qpfs = [];
 
@@ -265,9 +265,12 @@ var getWeather = function ($http) {
 		var ctxQpf = document.getElementById("hourlyForecastQpf").getContext("2d");
 
 		// plot graphs
-		var chartTemp = new Chart(ctxTemp, {type: 'line', data: dataTemp, options: optionsTemp});
-		var chartPop = new Chart(ctxPop, {type: 'line', data: dataPop, options: optionsPop});
-		var chartQpf = new Chart(ctxQpf, {type: 'line', data: dataQpf, options: optionsQpf});
+		// temperature
+		new Chart(ctxTemp, {type: 'line', data: dataTemp, options: optionsTemp});
+		// percentance of precipitation
+		new Chart(ctxPop, {type: 'line', data: dataPop, options: optionsPop});
+		// quantitative precipitation forecast
+		new Chart(ctxQpf, {type: 'line', data: dataQpf, options: optionsQpf});
 
 	}
 
