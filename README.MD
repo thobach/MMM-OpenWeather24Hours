@@ -1,3 +1,6 @@
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/thobach/MMM-OpenWeather24Hours.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/thobach/MMM-OpenWeather24Hours/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/thobach/MMM-OpenWeather24Hours.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/thobach/MMM-OpenWeather24Hours/context:javascript)
+
 # MMM-OpenWeather24Hours
 MMM-OpenWeather24Hours is a 3rd party module for [MagicMirror](https://github.com/MichMich/MagicMirror) that shows weather information for the next 24 hours. The weather data is retrieved from the OpenWeather API.
 
