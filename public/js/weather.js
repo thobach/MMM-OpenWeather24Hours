@@ -282,7 +282,7 @@ var getWeather = function ($http) {
 
 			var request = {
 				method: 'GET',
-				url: 'https://api.openweathermap.org/data/2.5/onecall?appid=' + weatherService.openWeatherApiKey +
+				url: 'https://api.openweathermap.org/data/3.0/onecall?appid=' + weatherService.openWeatherApiKey +
 					'&lat=' + weatherService.latitudeLongitude.split(',')[0] + '&lon=' + weatherService.latitudeLongitude.split(',')[1] + '&lang=de&exclude=minutely,alerts&units=metric'
 			}
 
